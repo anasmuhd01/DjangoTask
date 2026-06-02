@@ -21,6 +21,7 @@
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
             <div class="flex items-center gap-4">
+                <h2 class="text-2xl font-bold text-indigo-600">{{request.user}}</h2>
                 <h1 class="text-2xl font-bold text-indigo-600">
                     Home
                 </h1>
@@ -31,14 +32,23 @@
                 </a>
             </div>
 
-            <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition">
+
+
+
+            <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition">
                 Logout
             </a>
+
 
         </div>
     </nav>
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10">
+        {% for message in messages %}
+        <p class="mb-4 px-4 py-3 rounded-lg bg-yellow-100 border border-yellow-400 text-yellow-800 font-medium">
+            {{ message }}
+        </p>
+        {% endfor %}
 
         <h2 class="text-3xl font-bold text-slate-800 mb-8">
             Student List
@@ -86,7 +96,7 @@
                             Edit
                         </a>
 
-                        <a href="#"
+                        <a href="{% url 'dltstdnt' i.id %}"
                             class="flex-1 bg-red-500 hover:bg-red-600 text-white text-center py-2 rounded-lg font-medium transition">
                             Delete
                         </a>
@@ -98,7 +108,7 @@
             </div>
             {% endfor %}
             {% else %}
-            <h1>no studentdata available</h1>
+            <h1 class="bg-danger">no studentdata available</h1>
             {% endif %}
 
 

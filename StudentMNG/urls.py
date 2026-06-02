@@ -27,4 +27,6 @@ urlpatterns = [
     path('homeview',HomeView.as_view(),name='shome'),
     path('addstud',CreateStudentView.as_view(),name='addstdnt'),
     path('editstud/<int:id>',EditStudentView.as_view(),name='editstdnt'),
+    path('deletestud/<int:id>',DeleteStudentView.as_view(),name='dltstdnt'),
+    path('logout',LogoutView.as_view(),name="logout")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

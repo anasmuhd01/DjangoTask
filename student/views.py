@@ -3,9 +3,10 @@ from django.views import View
 from django.views.generic import TemplateView,FormView,CreateView
 from student.forms import *
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from student.forms import StudentdetailsForm
 from student.models import StudentDetails
+from django.contrib import messages
 
 # Create your views here.
 
@@ -34,25 +35,39 @@ class SignupView(CreateView):
 
 class HomeView(View):
     def get(self,req):
-        data = StudentDetails.objects.all()
-        return render(req,'studenthome.html',{'sdetails':data})
+        print(req.user)
+        if not req.user.is_authenticated:
+            return redirect(req,'signin.html')
+            
+        else:
+            data = StudentDetails.objects.all()
+            return render(req,'studenthome.html',{'sdetails':data})
+            
 
 
 class CreateStudentView(CreateView):
+
     template_name = 'addstudent.html'
     form_class = StudentdetailsForm
     success_url = reverse_lazy('shome')
 
 class EditStudentView(View):
     def get(self,req,**kwargs):
-        id = kwargs.get('id')
-        form_data = StudentDetails.objects.get(id=id)
-        #use only if data is passed as in djangoform model
-        # form_data = StudentdetailsForm(instance=qset)
-        return render(req,"editstudent.html",{'form_data':form_data})
-    
+
+        if not req.user.is_authenticated:
+            return redirect('signin')
+        else:
+
+            id = kwargs.get('id')
+            form_data = StudentDetails.objects.get(id=id)
+            #use only if data is passed as in djangoform model
+            # form_data = StudentdetailsForm(instance=qset)
+            return render(req,"editstudent.html",{'form_data':form_data})
+        
     def post(self,req,**kwargs):
+
         id = kwargs.get('id')
+
         student = StudentDetails.objects.get(id=id)
         student.name = req.POST.get('name')
         student.dob = req.POST.get('dob')
@@ -63,10 +78,19 @@ class EditStudentView(View):
 
         student.save()
         return redirect('shome')
-        
+    
 
+class DeleteStudentView(View):
+    def get(self,req,**kwargs):
+        id = kwargs.get('id')
+        StudentDetails.objects.get(id=id).delete()
+        messages.success(req,'student deleted')
+        return redirect('shome')
     
-    
+class LogoutView(View):
+    def get(self,req):
+        logout(req)
+        return redirect('signin')
 
 
     

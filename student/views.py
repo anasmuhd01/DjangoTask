@@ -30,7 +30,11 @@ class SigninView(FormView):
 class SignupView(CreateView):
     template_name = 'signup.html'
     form_class = SignupForm
-    success_url = reverse_lazy('shome')
+    
+    success_url = reverse_lazy('signin')
+    def form_valid(self, form):
+        messages.success(self.request, 'Signup successful')
+        return super().form_valid(form)
 
 
 class HomeView(View):

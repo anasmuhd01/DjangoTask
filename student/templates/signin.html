@@ -18,58 +18,48 @@
 
 <body class="bg-gray-900">
 
+    <div class="min-h-screen flex flex-col items-center justify-center px-6">
 
-    <div class="container flex min-h-full flex-col items-center justify-center px-6 py-12 lg:px-8  ">
+        <h2 class="text-4xl md:text-6xl font-bold text-white text-center">
+            Sign In
+        </h2>
 
-        <h2 class="text-5xl font-semibold tracking-tight text-white sm:text-7xl">Sign In</h2>
         {% if messages %}
         {% for msg in messages %}
-        <span class="pt-6   font text-amber-500">{{msg}}</span>
+        <span class="mt-4 text-amber-400 font-medium text-center">
+            {{ msg }}
+        </span>
         {% endfor %}
         {% endif %}
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" class="space-y-6">
+
+        <div class="mt-10 w-full max-w-md md:max-w-lg">
+
+            <form method="POST" class="space-y-5">
                 {% csrf_token %}
-                <div class="">
 
-                    <div class="mt-2 ">
-                        <input id="text" type="text" name="username" placeholder="Enter Username"
-                            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
-                    </div>
-
-
-
-
-                    <div class="mt-2">
-                        <input placeholder="Enter Password" id="password" type="password" name="password" required
-                            autocomplete="current-password"
-                            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
-                    </div>
+                <div>
+                    <input type="text" name="username" placeholder="Enter Username" required
+                        class="block w-full rounded-lg bg-white/5 px-4 py-3 text-white placeholder:text-gray-400 outline outline-1 outline-white/10 focus:outline-2 focus:outline-indigo-500" />
                 </div>
 
+                <div>
+                    <input type="password" name="password" placeholder="Enter Password" required
+                        autocomplete="current-password"
+                        class="block w-full rounded-lg bg-white/5 px-4 py-3 text-white placeholder:text-gray-400 outline outline-1 outline-white/10 focus:outline-2 focus:outline-indigo-500" />
+                </div>
 
                 <div class="flex justify-center">
-                    <button type="submit" class="flex  justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 
-                        font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 
-                        focus-visible:outline-indigo-500">Signin</button>
-                    <!-- <a href="{% url 'signup' %}" class="underline text-white">New Student ?</a> -->
+                    <button type="submit"
+                        class="w-1/2 rounded-lg bg-indigo-600 px-4 py-3 text-base font-semibold text-white hover:bg-indigo-500 transition duration-200">
+                        Sign In
+                    </button>
                 </div>
 
             </form>
 
-
         </div>
+
     </div>
-    <!-- <form action="" method="post">
-        {% csrf_token %}
-
-
-        <input class="form-control" type="text" name="username" id="" placeholder="enter username">
-        <input class="form-control" type="password" name="password" id="" placeholder="enter password">
-        <button class="btn btn-primary"> submit</button>
-        
-    </form> -->
-
 
 </body>
 

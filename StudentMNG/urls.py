@@ -16,7 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from student.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('',SigninView.as_view(),name='signin'),
+    path('signup',SignupView.as_view(),name='signup'),
+    path('homeview',HomeView.as_view(),name='shome'),
+    path('addstud',CreateStudentView.as_view(),name='addstdnt'),
+    path('editstud/<int:id>',EditStudentView.as_view(),name='editstdnt'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

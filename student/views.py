@@ -24,6 +24,7 @@ class SigninView(FormView):
                 login(req,user)
                 return redirect('shome')
             else: 
+                messages.warning(req,'Inavlid username/password')
                 return render(req,'signin.html')
 
 

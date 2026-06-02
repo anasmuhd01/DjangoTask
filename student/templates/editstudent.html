@@ -50,7 +50,7 @@
                         Date of Birth
                     </label>
 
-                    <input type="date" name="dob" required value="{{form_data.dob}}"
+                    <input type="date" name="dob" required value="{{form_data.dob|date:'Y-m-d'}}"
                         class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
 
@@ -74,10 +74,19 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">
-                        Student Photo
+                        Current Photo
                     </label>
 
-                    <input type="file" name="img" accept="image/*" required value="{{form_data.img.url}}"
+                    {% if form_data.img %}
+                    <img src="{{ form_data.img.url }}" alt="Student Photo"
+                        class="w-32 h-32 object-cover rounded-lg mb-3 border border-slate-300">
+                    {% endif %}
+
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">
+                        Upload New Photo
+                    </label>
+
+                    <input type="file" name="img" accept="image/*"
                         class="w-full border border-slate-300 rounded-lg px-4 py-3 bg-white file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-indigo-600 file:text-white file:rounded-md hover:file:bg-indigo-700">
                 </div>
 
@@ -85,7 +94,7 @@
 
                     <button type="submit"
                         class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-12 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition duration-300">
-                        Add Student
+                        Save Edit
                     </button>
 
                 </div>

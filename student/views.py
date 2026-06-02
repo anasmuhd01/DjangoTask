@@ -50,7 +50,19 @@ class EditStudentView(View):
         #use only if data is passed as in djangoform model
         # form_data = StudentdetailsForm(instance=qset)
         return render(req,"editstudent.html",{'form_data':form_data})
+    
+    def post(self,req,**kwargs):
+        id = kwargs.get('id')
+        student = StudentDetails.objects.get(id=id)
+        student.name = req.POST.get('name')
+        student.dob = req.POST.get('dob')
+        student.div = req.POST.get('div')
+        student.year = req.POST.get('year')
+        if req.FILES.get('img'):
+            student.img = req.FILES.get('img')
 
+        student.save()
+        return redirect('shome')
         
 
     
